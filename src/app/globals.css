@@ -1,26 +1,47 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+	--color-threads-gray: #0f0f0f;
+	--color-threads-gray-light: #7a7a7a;
+	--color-threads-gray-dark: #1e1e1e;
+	--color-modal: #414040;
 }
+@layer components {
+	.input {
+		@apply bg-threads-gray-dark block w-full mt-3 text-white rounded-xl p-5 placeholder:text-threads-gray-light;
+	}
+	.label {
+		@apply font-bold text-white text-base;
+	}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+	.post {
+		@apply border-b border-threads-gray-dark hover:bg-threads-gray-light duration-150 py-4 flex gap-5;
+	}
+	.options {
+		@apply absolute top-5 right-0 z-10 bg-modal border border-threads-gray-light overflow-hidden rounded-xl shadow;
+	}
+	.option {
+		@apply bg-modal px-4 py-1 cursor-pointer hover:bg-threads-gray-dark duration-150;
+	}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+	.modale-background {
+		@apply bg-threads-gray-light  fixed top-0 left-0 bottom-0 right-0 flex justify-center items-center z-30;
+	}
+	.modale-foreground {
+		@apply rounded-xl shadow lg:w-[740px] w-10/12 overflow-y-auto p-5 bg-modal border border-threads-gray-light;
+	}
+	.modale-user-foreground {
+		@apply rounded-xl shadow lg:w-[740px] w-10/12 overflow-y-auto p-5 bg-modal border border-threads-gray-light;
+	}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	.auth-method {
+		@apply border rounded-3xl border-threads-gray-light p-5 bg-threads-gray hover:bg-gray-900 duration-150;
+	}
+
+	.user-button {
+		@apply border border-threads-gray-light rounded-xl py-3 w-full text-center hover:bg-threads-gray-light duration-150 cursor-pointer mt-3;
+	}
+	.title {
+		@apply text-center font-bold text-white text-xl;
+	}
 }
