@@ -1,7 +1,14 @@
 "use client";
 import Button from "@/components/Button/Button";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 export default function Pass() {
+	const router = useRouter();
+	const onContinue = () => {
+		setCookie("Guest", "true");
+		router.push("/");
+	};
 	return (
 		<section className="flex flex-col gap-4 w-[440px] mx-auto text-left">
 			<h1 className="title flex items-center gap-1 text-left">
@@ -27,7 +34,7 @@ export default function Pass() {
 			</p>
 			<Button
 				onClick={() => {
-					alert("vous avez cliquez sur le prout");
+					onContinue();
 				}}
 			>
 				Continuer

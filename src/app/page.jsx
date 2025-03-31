@@ -1,7 +1,9 @@
+import ConnectedLayout from "@/components/ConnectedLayout/ConnectedLayout";
+
 export default function Index() {
 	return (
-		<section>
+		<ConnectedLayout>
 			<h1>Accueil</h1>
-		</section>
+		</ConnectedLayout>
 	);
 }
