@@ -39,7 +39,9 @@ export default function ConnectedLayout({ children }) {
 						</svg>
 					</Link>
 				</nav>
-				<Button>Se connecter</Button>
+				<Link href="/login">
+					<Button>Se connecter</Button>
+				</Link>
 			</header>
 			{/*content*/}
 			<div className="flex-1">{children}</div>

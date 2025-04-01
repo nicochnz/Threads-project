@@ -1,11 +1,18 @@
 "use client";
-
-export default function Button({ children, onClick, withoutMarginTop }) {
+import { useFormStatus } from "react-dom";
+export default function Button({
+	children,
+	onClick,
+	withoutMarginTop,
+	formButton,
+}) {
+	const { pending } = useFormStatus();
 	return (
 		<div className="flex items-center justify-center">
 			<button
-				type="button"
-				className={`bg-white hover:bg-gray-500 duration-150 rounded-3xl border-threads-gray-light py-3 px-6 w-full ${withoutMarginTop ? "" : "mt-4"} cursor-pointer`}
+				disabled={formButton && pending}
+				type={formButton ? "submit" : "button"}
+				className={`w-full bg-white disabled:bg-opacity-50 disabled:cursor-not-allowed text-black rounded-xl p-5 mt-4 font-medium hover:bg-gray-200 transition-colors cursor-pointer ${withoutMarginTop ? "" : "mt-4"} cursor-pointer`}
 				onClick={onClick}
 			>
 				{children}
