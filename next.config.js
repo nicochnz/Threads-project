@@ -5,8 +5,9 @@ module.exports = (env) => {
 			env: {
 				MONGODB_CLIENT:
 					"mongodb+srv://chichenicolas:98RMNm3RSd080jO2@cluster0.cz0jjma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-				MONGODB_DATABASE: "threads",
+				MONGODB_DATABASE: "Threads",
 				NEXTAUTH_SECRET: "secret",
+				NEXTAUTH_URL: "http://localhost:3000",
 			},
 		};
 	}
@@ -14,8 +15,9 @@ module.exports = (env) => {
 		env: {
 			MONGODB_CLIENT:
 				"mongodb+srv://chichenicolas:98RMNm3RSd080jO2@cluster0.cz0jjma.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-			MONGODB_DATABASE: "threads",
+			MONGODB_DATABASE: "Threads",
 			NEXTAUTH_SECRET: "secret",
+			NEXTAUTH_URL: "http://localhost:3000",
 		},
 	};
 };

@@ -1,15 +1,19 @@
 "use client";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "../Button/Button";
 import Footer from "../Footer/Footer";
+
 export default function ConnectedLayout({ children }) {
+	const { data: session } = useSession();
 	const pathname = usePathname();
+
 	return (
 		<section className="flex flex-col min-h-screen">
 			{/*header*/}
-			<header className="flex justify-between items-center gap-5">
+			<header className="flex justify-between items-center gap-5 p-4">
 				<Image src="/logo.png" alt="logo" width={40} height={40} />
 				<nav className="flex gap-2">
 					<Link href="/">
@@ -39,9 +43,15 @@ export default function ConnectedLayout({ children }) {
 						</svg>
 					</Link>
 				</nav>
-				<Link href="/login">
-					<Button>Se connecter</Button>
-				</Link>
+				{session ? (
+					<Button withoutMarginTop onClick={() => signOut()}>
+						Se déconnecter
+					</Button>
+				) : (
+					<Link href="/login">
+						<Button withoutMarginTop>Se connecter</Button>
+					</Link>
+				)}
 			</header>
 			{/*content*/}
 			<div className="flex-1">{children}</div>

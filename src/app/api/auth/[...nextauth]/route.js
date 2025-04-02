@@ -11,7 +11,8 @@ export const authOptions = {
 				const { email, password } = credentials;
 				try {
 					const client = await MongoClient.connect(process.env.MONGODB_CLIENT);
-					const db = client.db(process.env.MONGODB_DATABASE);
+
+					const db = client.db("Threads");
 
 					let user = await db
 						.collection("users")
@@ -58,7 +59,20 @@ export const authOptions = {
 	pages: {
 		signIn: "/login/signin",
 	},
-	callbacks: {},
+	callbacks: {
+		async jwt({ token, user }) {
+			if (user) {
+				token.user = user;
+			}
+			return token;
+		},
+		async session({ session, token }) {
+			session.user = token.user;
+			return session;
+		},
+	},
 };
+
 const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST };

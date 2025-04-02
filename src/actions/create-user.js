@@ -12,7 +12,7 @@ export const createUser = async (pseudo, email, password) => {
 	}
 
 	const client = await MongoClient.connect(process.env.MONGODB_CLIENT);
-	const db = client.db("threads");
+	const db = client.db("Threads");
 
 	try {
 		const existingEmail = await db.collection("users").findOne({ email });

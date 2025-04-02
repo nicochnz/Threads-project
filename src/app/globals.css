@@ -5,10 +5,11 @@
 	--color-threads-gray-light: #7a7a7a;
 	--color-threads-gray-dark: #1e1e1e;
 	--color-modal: #414040;
+	--color-threads-gray-dark-light: #343434;
 }
 @layer components {
 	.input {
-		@apply bg-threads-gray-dark block w-full mt-3 text-white rounded-xl p-5 placeholder:text-threads-gray-light;
+		@apply bg-threads-gray-dark-light block w-full mt-3 text-white rounded-xl p-5 placeholder:text-threads-gray-light;
 	}
 	.label {
 		@apply font-bold text-white text-base;
