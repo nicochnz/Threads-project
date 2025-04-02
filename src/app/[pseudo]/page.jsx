@@ -2,69 +2,56 @@
 import ConnectedLayout from "@/components/ConnectedLayout/ConnectedLayout";
 import Posts from "@/components/Posts/Posts";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 export default function Profile() {
 	const params = useParams();
 	const pseudo = params.pseudo.slice(3);
-	const posts = [
-		{
-			_id: "1",
-			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-			createdAt: new Date(),
-			pseudo: "John Doe",
-			profile: "/picture.png",
-		},
-		{
-			_id: "2",
-			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-			createdAt: new Date(),
-			pseudo: "John Doe",
-			profile: "/picture.png",
-		},
-		{
-			_id: "3",
-			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-			createdAt: new Date(),
-			pseudo: "John Doe",
-			profile: "/picture.png",
-		},
-		{
-			_id: "4",
-			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-			createdAt: new Date(),
-			pseudo: "John Doe",
-			profile: "/picture.png",
-		},
-		{
-			_id: "5",
-			content:
-				"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
-			createdAt: new Date(),
-			pseudo: "John Doe",
-			profile: "/picture.png",
-		},
-	];
+	const [user, setUser] = useState([]);
+	const [posts, setPosts] = useState([]);
+	useEffect(() => {
+		if (!pseudo) {
+			notFound();
+		}
+		fetchUserDataPosts();
+	}, [pseudo]);
+	const fetchUserDataPosts = async () => {
+		const response = await fetch("/api/user", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ pseudo }),
+		});
+		const data = await response.json();
+		if (!response.ok) {
+			toast.error(
+				"Une erreur est survenue lors de la récupération des données",
+			);
+		}
+		setUser(data.user);
+		setPosts(data.posts);
+	};
 	return (
 		<ConnectedLayout>
 			<div className="w-full md:w-[700px] mx-auto mt-10 text-white">
 				<div className="flex justify-between gap-4">
 					<div>
-						<h1 className="text-3xl font-semibold">{pseudo}</h1>
+						<h1 className="text-3xl font-semibold">{user.pseudo}</h1>
 						<div className="text-threads-gray-light mt-2">@{pseudo}</div>
-						<div className="mt-5 whitespace-pre-line">Biographie</div>
-						<div className="mt-5 text-blue-500 hover:text-blue-400 duration-150 ">
-							<a href="https://believemy.com" target="_blank" rel="noreferrer">
-								https://believemy.com
-							</a>
-						</div>
+						<div className="mt-5 whitespace-pre-line">{user.bio}</div>
+						{user?.url && (
+							<div className="mt-5 text-blue-500 hover:text-blue-400 duration-150 ">
+								<a href={user.url} target="_blank" rel="noreferrer">
+									{user.url}
+								</a>
+							</div>
+						)}
 					</div>
 					<div>
 						<Image
-							src="/picture.png"
+							src={user.profile}
 							alt="user"
 							width={100}
 							height={100}
