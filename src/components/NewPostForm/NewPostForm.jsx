@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Button from "../Button/Button";
-export default function NewPostForm() {
+export default function NewPostForm({ closeModale }) {
 	const { data: session } = useSession();
 	const [textarea, setTextarea] = useState("");
 	const onPrepare = async (formData) => {
@@ -15,6 +15,9 @@ export default function NewPostForm() {
 			toast.success("Thread publié avec succès");
 		} catch (error) {
 			return toast.error(error.message);
+		}
+		if (typeof closeModale === "function") {
+			closeModale();
 		}
 	};
 	return (

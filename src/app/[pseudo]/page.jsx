@@ -51,7 +51,7 @@ export default function Profile() {
 					</div>
 					<div>
 						<Image
-							src={user.profile}
+							src={user.profile || "/picture.png"}
 							alt="user"
 							width={100}
 							height={100}
